@@ -9,6 +9,7 @@ import {
   orderBy
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+
 // CONFIG
 const firebaseConfig = {
   apiKey: "AIzaSyAibPUdGjS0PrpyssRFQVAPO-3BLpV-IaE",
@@ -24,94 +25,169 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
+
 /* ================= AUTH GUARD ================= */
-onAuthStateChanged(auth, user => {
-  if (!user) window.location.href = "../index.html";
-});
+/*
+IMPORTANT:
 
-/* ================= DOM READY ================= */
-document.addEventListener("DOMContentLoaded", () => {
+GitHub pages can load JS slower sometimes.
+We wait for auth BEFORE running dashboard code.
+*/
 
-  /* STUDENT COUNT */
-  onSnapshot(collection(db, "students"), snap => {
-    document.getElementById("studentCount").innerText = snap.size;
-  });
+onAuthStateChanged(auth, (user) => {
 
-  /* TEACHER COUNT */
-  onSnapshot(collection(db, "teachers"), snap => {
-    document.getElementById("teacherCount").innerText = snap.size;
-  });
-
-  /* ANNOUNCEMENTS (ALERTS TAB) */
-  const announcementList = document.getElementById("announcementList");
-
-  const q = query(
-    collection(db, "announcements"),
-    orderBy("createdAt", "desc")
-  );
-
-  onSnapshot(q, snapshot => {
-    announcementList.innerHTML = "";
-
-    if (snapshot.empty) {
-      announcementList.innerHTML = `
-        <div class="empty">
-          <span class="material-icons-outlined">campaign</span>
-          <p>No announcements yet</p>
-        </div>`;
-      return;
-    }
-
-    snapshot.forEach(doc => {
-      const data = doc.data();
-
-      announcementList.innerHTML += `
-        <div class="announcement-card">
-          <h4>${data.title}</h4>
-          <p>${data.message}</p>
-          <span class="date">
-            ${data.createdAt?.toDate().toLocaleString() || ""}
-          </span>
-        </div>`;
-    });
-  });
-
-  /* TAB NAV */
-  document.querySelectorAll(".nav-item").forEach(item => {
-    item.onclick = () => {
-      document.querySelectorAll(".nav-item").forEach(i => i.classList.remove("active"));
-      document.querySelectorAll(".tab").forEach(t => t.classList.remove("active"));
-      item.classList.add("active");
-      document.getElementById(item.dataset.tab).classList.add("active");
-    };
-  });
-
-  /* MODAL */
-  const modal = document.getElementById("modal");
-  document.getElementById("openModal").onclick = () => modal.classList.add("show");
-  document.getElementById("closeModal").onclick = () => modal.classList.remove("show");
-
-  /* PROFILE EDIT */
-  const editBtn = document.getElementById("editProfile");
-  const adminName = document.getElementById("adminName");
-
-  editBtn.onclick = () => {
-    const editing = adminName.isContentEditable;
-    adminName.contentEditable = !editing;
-    editBtn.innerText = editing ? "Edit Profile" : "Save Changes";
-  };
-
-  /* DARK MODE */
-  const darkToggle = document.getElementById("darkToggle");
-
-  if (localStorage.getItem("darkMode") === "true") {
-    document.body.classList.add("dark");
-    darkToggle.checked = true;
+  if (!user) {
+    // safer redirect for hosted sites
+    window.location.href = "../index.html";
+    return;
   }
 
-  darkToggle.onchange = () => {
-    document.body.classList.toggle("dark");
-    localStorage.setItem("darkMode", document.body.classList.contains("dark"));
-  };
+  // ✅ Only run dashboard AFTER auth confirmed
+  startDashboard();
 
 });
+
+
+
+/* ================= START DASHBOARD ================= */
+
+function startDashboard() {
+
+  document.addEventListener("DOMContentLoaded", () => {
+
+    /* STUDENT COUNT */
+    const studentEl = document.getElementById("studentCount");
+
+    if(studentEl){
+      onSnapshot(collection(db, "students"), snap => {
+        studentEl.innerText = snap.size;
+      });
+    }
+
+
+    /* TEACHER COUNT */
+    const teacherEl = document.getElementById("teacherCount");
+
+    if(teacherEl){
+      onSnapshot(collection(db, "teachers"), snap => {
+        teacherEl.innerText = snap.size;
+      });
+    }
+
+
+    /* ANNOUNCEMENTS */
+    const announcementList = document.getElementById("announcementList");
+
+    if(announcementList){
+
+      const q = query(
+        collection(db, "announcements"),
+        orderBy("createdAt", "desc")
+      );
+
+      onSnapshot(q, snapshot => {
+
+        announcementList.innerHTML = "";
+
+        if (snapshot.empty) {
+          announcementList.innerHTML = `
+            <div class="empty">
+              <span class="material-icons-outlined">campaign</span>
+              <p>No announcements yet</p>
+            </div>`;
+          return;
+        }
+
+        snapshot.forEach(doc => {
+
+          const data = doc.data();
+
+          announcementList.innerHTML += `
+            <div class="announcement-card">
+              <h4>${data.title}</h4>
+              <p>${data.message}</p>
+              <span class="date">
+                ${data.createdAt?.toDate().toLocaleString() || ""}
+              </span>
+            </div>`;
+        });
+
+      });
+    }
+
+
+    /* TAB NAV */
+    document.querySelectorAll(".nav-item").forEach(item => {
+
+      item.onclick = () => {
+
+        document.querySelectorAll(".nav-item")
+          .forEach(i => i.classList.remove("active"));
+
+        document.querySelectorAll(".tab")
+          .forEach(t => t.classList.remove("active"));
+
+        item.classList.add("active");
+
+        const tab = document.getElementById(item.dataset.tab);
+
+        if(tab) tab.classList.add("active");
+      };
+    });
+
+
+    /* MODAL */
+    const modal = document.getElementById("modal");
+
+    const openBtn = document.getElementById("openModal");
+    const closeBtn = document.getElementById("closeModal");
+
+    if(openBtn && modal){
+      openBtn.onclick = () => modal.classList.add("show");
+    }
+
+    if(closeBtn && modal){
+      closeBtn.onclick = () => modal.classList.remove("show");
+    }
+
+
+    /* PROFILE EDIT */
+    const editBtn = document.getElementById("editProfile");
+    const adminName = document.getElementById("adminName");
+
+    if(editBtn && adminName){
+
+      editBtn.onclick = () => {
+
+        const editing = adminName.isContentEditable;
+
+        adminName.contentEditable = !editing;
+        editBtn.innerText = editing ? "Edit Profile" : "Save Changes";
+      };
+    }
+
+
+    /* DARK MODE */
+    const darkToggle = document.getElementById("darkToggle");
+
+    if(darkToggle){
+
+      if (localStorage.getItem("darkMode") === "true") {
+        document.body.classList.add("dark");
+        darkToggle.checked = true;
+      }
+
+      darkToggle.onchange = () => {
+
+        document.body.classList.toggle("dark");
+
+        localStorage.setItem(
+          "darkMode",
+          document.body.classList.contains("dark")
+        );
+      };
+    }
+
+  });
+
+  }
