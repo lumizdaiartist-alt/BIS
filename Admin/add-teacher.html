@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Teacher</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+<style>
+:root{
+    --primary:#16a34a;
+    --bg:#f8fafc;
+    --card:#ffffff;
+    --text:#0f172a;
+    --muted:#64748b;
+    --border:#e2e8f0;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:var(--bg);
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:100%;
+    max-width:520px;
+    padding:20px;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.back-btn{
+    background:var(--card);
+    border:1px solid var(--border);
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+}
+
+.card{
+    background:var(--card);
+    padding:28px;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(15,23,42,.06);
+    border:1px solid var(--border);
+}
+
+.input-group{
+    margin-bottom:16px;
+}
+
+input, select{
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:14px;
+    background:var(--primary);
+    color:white;
+    font-size:16px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.success{
+    text-align:center;
+    margin-top:14px;
+    font-weight:600;
+    color:var(--primary);
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<div class="header">
+<div class="back-btn" onclick="history.back()">
+<span class="material-icons-outlined">arrow_back</span>
+</div>
+<h2>Add Teacher</h2>
+</div>
+
+<div class="card">
+
+<div class="input-group">
+<input id="teacherName" placeholder="Full Name" required>
+</div>
+
+<div class="input-group">
+<input id="teacherPhone" placeholder="Phone Number" required>
+</div>
+
+<div class="input-group">
+<input id="teacherEmail" type="email" placeholder="Email Address" required autocomplete="off">
+</div>
+
+<div class="input-group">
+<input id="teacherPassword" type="password" placeholder="Create Password (min 6 characters)" required autocomplete="new-password">
+</div>
+
+<div class="input-group">
+<input id="teacherSubject" placeholder="Subject e.g Mathematics" required>
+</div>
+
+<div class="input-group">
+<select id="teacherClass" required>
+<option value="">Assign Class</option>
+<option>JSS1</option>
+<option>JSS2</option>
+<option>JSS3</option>
+<option>SS1</option>
+<option>SS2</option>
+<option>SS3</option>
+</select>
+</div>
+
+<button id="saveTeacher">Add Teacher</button>
+<p id="successMsg" class="success"></p>
+
+</div>
+</div>
+
+<script type="module" src="add-teacher.js"></script>
+</body>
+</html>

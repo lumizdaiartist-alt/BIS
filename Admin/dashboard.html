@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard</title>
+
+<link rel="stylesheet" href="dashboard.css">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="content">
+
+<!-- ================= HOME ================= -->
+<section id="home" class="tab active">
+
+<div class="welcome">
+<h2>Welcome Admin 👋</h2>
+<p>Here is what is happening in your school today.</p>
+</div>
+
+<div class="stats">
+
+<div class="card" onclick="location.href='students-list.html'">
+<span class="material-icons-outlined">school</span>
+<h3>Students</h3>
+<p id="studentCount">0</p>
+</div>
+
+<div class="card" onclick="location.href='staff-list.html'">
+<span class="material-icons-outlined">groups</span>
+<h3>Teachers</h3>
+<p id="teacherCount">0</p>
+</div>
+
+</div>
+
+<div class="section-header">
+<h3>Recent Activity</h3>
+</div>
+
+<div class="activity-list">
+<div class="empty-state">
+<span class="material-icons-outlined">history</span>
+<p>No recent activity to show.</p>
+</div>
+</div>
+
+</section>
+
+<!-- ================= ALERTS / ANNOUNCEMENTS ================= -->
+<section id="announcements" class="tab">
+
+<div class="alerts-header">
+<div>
+<h2>Alerts</h2>
+<p>School-wide announcements & notices</p>
+</div>
+</div>
+
+<div id="announcementList" class="alerts-grid">
+<!-- Cards injected by JS -->
+</div>
+
+</section>
+
+<!-- ================= SETTINGS ================= -->
+<section id="settings" class="tab">
+<h2>Settings</h2>
+
+<div class="settings-card">
+
+<div class="setting">
+<p>Dark Mode</p>
+<label class="switch">
+<input type="checkbox" id="darkToggle">
+<span class="slider"></span>
+</label>
+</div>
+
+<div class="setting">
+<p>Enable Notifications</p>
+<input type="checkbox" checked>
+</div>
+
+</div>
+</section>
+
+<!-- ================= PROFILE ================= -->
+<section id="profile" class="tab">
+
+<div class="profile">
+<div class="avatar">
+<span class="material-icons-outlined">person</span>
+</div>
+
+<h3 id="adminName">Admin User</h3>
+<p style="color: gray;">Super Administrator</p>
+
+<button id="editProfile">Edit Profile</button>
+</div>
+
+</section>
+
+</div>
+
+<!-- ================= MODAL ================= -->
+<div class="modal" id="modal">
+<div class="modal-sheet">
+
+<h3>Quick Actions</h3>
+
+<div class="modal-buttons">
+
+<button onclick="location.href='add-student.html'">
+<span class="material-icons-outlined">person_add</span>
+Add Student
+</button>
+
+<button onclick="location.href='students-list.html'">
+<span class="material-icons-outlined">groups</span>
+Students List
+</button>
+
+<button onclick="location.href='add-teacher.html'">
+<span class="material-icons-outlined">group_add</span>
+Add Teacher
+</button>
+
+<button onclick="location.href='staff-list.html'">
+<span class="material-icons-outlined">badge</span>
+Staff List
+</button>
+
+<button onclick="location.href='post-notice.html'">
+<span class="material-icons-outlined">post_add</span>
+Post Announcement
+</button>
+
+<button onclick="location.href='announcements.html'">
+<span class="material-icons-outlined">campaign</span>
+View Announcements
+</button>
+
+<button class="close-btn" id="closeModal">Dismiss</button>
+
+</div>
+</div>
+</div>
+
+<!-- ================= NAV ================= -->
+<div class="bottom-nav">
+
+<div class="nav-item active" data-tab="home">
+<span class="material-icons-outlined">home</span>
+<p>Home</p>
+</div>
+
+<div class="nav-item" data-tab="announcements">
+<span class="material-icons-outlined">campaign</span>
+<p>Alerts</p>
+</div>
+
+<div class="nav-center-wrapper">
+<div class="nav-center" id="openModal">
+<span class="material-icons-outlined">add</span>
+</div>
+</div>
+
+<div class="nav-item" data-tab="settings">
+<span class="material-icons-outlined">settings</span>
+<p>Settings</p>
+</div>
+
+<div class="nav-item" data-tab="profile">
+<span class="material-icons-outlined">person</span>
+<p>Profile</p>
+</div>
+
+</div>
+
+<script type="module" src="./dashboard.js"></script>
+</body>
+</html>

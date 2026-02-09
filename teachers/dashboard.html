@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Benaiah International School – Teacher Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<div class="app">
+
+    <!-- Header -->
+    <header>
+        <h1>Benaiah International School</h1>
+        <p class="motto">Courage • Initiative • Success</p>
+        <div class="welcome" id="welcomeUser">Welcome, Teacher</div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="content">
+        <section class="card">
+            <h3>Dashboard Overview</h3>
+            <p>Select an action using the + button or navigate below.</p>
+        </section>
+    </main>
+
+    <!-- Floating Action Button -->
+    <button class="fab" id="fab">
+        <i class="fas fa-plus"></i>
+    </button>
+
+    <!-- Modal -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <h3>Quick Actions</h3>
+
+            <button class="modal-btn">
+                <i class="fas fa-upload"></i>
+                Post Assignment
+            </button>
+
+            <button class="modal-btn">
+                <i class="fas fa-eye"></i>
+                View Assignments
+            </button>
+
+            <button class="modal-btn">
+                <i class="fas fa-chart-line"></i>
+                Upload Results
+            </button>
+
+            <button class="close-modal" id="closeModal">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active">
+            <i class="fas fa-house"></i>
+            <span>Home</span>
+        </button>
+
+        <button class="nav-btn">
+            <i class="fas fa-bullhorn"></i>
+            <span>Announcements</span>
+        </button>
+
+        <button class="nav-btn">
+            <i class="fas fa-gear"></i>
+            <span>Settings</span>
+        </button>
+    </nav>
+
+</div>
+
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Students List</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f1f5f9;
+    margin:0;
+    padding:15px;
+}
+
+header{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+header h2{ flex:1; margin:0 }
+
+.controls{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.controls input,
+.controls select{
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    outline:none;
+}
+
+.student-card{
+    background:#fff;
+    border-radius:12px;
+    padding:15px;
+    margin-bottom:12px;
+    box-shadow:0 4px 10px rgba(0,0,0,.08);
+}
+
+.student-card h4{ margin:0 0 6px }
+
+.student-card p{
+    margin:4px 0;
+    color:#555;
+}
+
+.card-actions{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+.card-actions button{
+    flex:1;
+    padding:10px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.edit{ background:#2563eb; color:white }
+.delete{ background:#dc2626; color:white }
+
+.pagination{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:20px 0;
+}
+
+.pagination button{
+    padding:8px 14px;
+    border:none;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal.show{ display:flex }
+
+.modal-box{
+    background:white;
+    width:100%;
+    max-width:350px;
+    border-radius:16px;
+    padding:20px;
+}
+
+.modal-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.modal-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#16a34a;
+    color:white;
+    font-weight:600;
+}
+
+.empty{
+    text-align:center;
+    color:gray;
+    margin-top:40px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<span class="material-icons-outlined" onclick="history.back()" style="cursor:pointer">arrow_back</span>
+<h2>Students</h2>
+</header>
+
+<div class="controls">
+<input type="text" id="searchInput" placeholder="Search name…">
+<select id="classFilter">
+<option value="">All Classes</option>
+</select>
+</div>
+
+<div id="studentsContainer"></div>
+
+<div class="pagination">
+<button id="prevBtn">Prev</button>
+<button id="nextBtn">Next</button>
+</div>
+
+<div class="empty" id="emptyState" style="display:none">No students found</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="editModal">
+<div class="modal-box">
+<h3>Edit Student</h3>
+<input id="editName" placeholder="Student Name">
+<input id="editClass" placeholder="Class">
+<input id="editParent" placeholder="Parent Phone">
+<button id="saveEdit">Save Changes</button>
+</div>
+</div>
+
+<script type="module" src="students-list.js"></script>
+</body>
+</html>

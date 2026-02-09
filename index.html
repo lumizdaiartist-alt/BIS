@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>School Portal Login</title>
+
+<link rel="stylesheet" href="auth/login.css">
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <!-- Logo -->
+    <img src="assets/logo.png" class="logo">
+
+    <h1>School Portal</h1>
+
+    <!-- Email -->
+    <input 
+        type="email" 
+        id="email"
+        placeholder="Enter Email"
+        required
+    >
+
+    <!-- Password -->
+    <input 
+        type="password" 
+        id="password"
+        placeholder="Enter Password"
+        required
+    >
+
+    <!-- Login Button -->
+    <button id="loginBtn">
+        Login
+    </button>
+
+    <p id="error"></p>
+
+</div>
+
+
+<!-- Firebase Login Script -->
+<script type="module" src="auth/login.js"></script>
+
+</body>
+</html>

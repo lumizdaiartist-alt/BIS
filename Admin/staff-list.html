@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff List</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+
+<style>
+body{
+    margin:0;
+    font-family:Inter, sans-serif;
+    background:#f8fafc;
+}
+
+.header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:20px;
+}
+
+.container{
+    padding:20px;
+    max-width:1000px;
+    margin:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+th, td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+}
+
+th{
+    background:#f1f5f9;
+}
+
+.actions button{
+    border:none;
+    padding:6px 10px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.edit{ background:#2563eb; color:white; }
+.delete{ background:#dc2626; color:white; }
+
+.pagination{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    gap:10px;
+}
+
+.empty{
+    background:white;
+    padding:40px;
+    border-radius:14px;
+    text-align:center;
+    color:#64748b;
+}
+
+/* MODAL */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.4);
+    display:none;
+    justify-content:center;
+    align-items:center;
+}
+
+.modal.show{ display:flex; }
+
+.modal-box{
+    background:white;
+    padding:20px;
+    width:90%;
+    max-width:400px;
+    border-radius:14px;
+}
+
+.modal-box input{
+    width:100%;
+    padding:12px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+.modal-box button{
+    width:100%;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <span class="material-icons-outlined" onclick="history.back()">arrow_back</span>
+    <h2>Staff List</h2>
+</div>
+
+<div class="container">
+
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Subject</th>
+<th>Class</th>
+<th>Phone</th>
+<th>Actions</th>
+</tr>
+</thead>
+<tbody id="staffTable"></tbody>
+</table>
+
+<div class="empty" id="emptyState" style="display:none;">
+No staff added yet.
+</div>
+
+<div class="pagination">
+<button id="prevBtn">Previous</button>
+<button id="nextBtn">Next</button>
+</div>
+
+</div>
+
+<!-- EDIT MODAL -->
+<div class="modal" id="editModal">
+    <div class="modal-box">
+        <h3>Edit Teacher</h3>
+        <input id="editName" placeholder="Name">
+        <input id="editSubject" placeholder="Subject">
+        <input id="editClass" placeholder="Class">
+        <input id="editPhone" placeholder="Phone">
+        <button id="saveEdit">Save Changes</button>
+    </div>
+</div>
+
+<script type="module" src="staff-list.js"></script>
+</body>
+</html>
