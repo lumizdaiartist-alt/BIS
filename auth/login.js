@@ -43,13 +43,13 @@ async function redirectUser(user){
 
         // ✅ ADMIN
         if(adminSnap.exists()){
-            window.location.href = "../Admin/dashboard.html";
-            return;
+    window.location.href = window.location.origin + "/BIS/Admin/dashboard.html";
+    return;
         }
 
         // ✅ TEACHER
         if(teacherSnap.exists()){
-            window.location.href = "../teachers/dashboard.html";
+            window.location.href = window.location.origin + "BIS/teachers/dashboard.html";
             return;
         }
 
